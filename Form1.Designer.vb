@@ -29,6 +29,7 @@ Partial Class Form1
         Me.btnconvert = New System.Windows.Forms.Button()
         Me.txlog = New System.Windows.Forms.TextBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.iscommander = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout
         Me.SuspendLayout
         '
@@ -89,11 +90,22 @@ Partial Class Form1
         Me.LinkLabel1.Text = "My Github"
         Me.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'iscommander
+        '
+        Me.iscommander.AutoSize = true
+        Me.iscommander.Location = New System.Drawing.Point(572, 121)
+        Me.iscommander.Name = "iscommander"
+        Me.iscommander.Size = New System.Drawing.Size(149, 21)
+        Me.iscommander.TabIndex = 5
+        Me.iscommander.Text = "Commander Decks"
+        Me.iscommander.UseVisualStyleBackColor = true
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8!, 16!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(813, 523)
+        Me.Controls.Add(Me.iscommander)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.txlog)
         Me.Controls.Add(Me.btnconvert)
@@ -116,4 +128,5 @@ End Sub
     Friend WithEvents btnconvert As Button
     Friend WithEvents txlog As TextBox
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents iscommander As CheckBox
 End Class

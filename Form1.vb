@@ -27,34 +27,41 @@ Public Class Form1
             'End If
             If r.Contains("LAYOUT MAIN") Then r = Split(r, "LAYOUT MAIN")(0).ToString
 
-            Dim t As String = "[metadata]" & vblf & "Name=" & name & vblf & "[Main]" & vblf
+            Dim t As String = "[metadata]" & vbLf & "Name=" & name & vbLf & "[Main]" & vbLf
 
-            Dim lines = Split(r, vblf)
+            Dim lines = Split(r, vbLf)
             For i = 0 To lines.Length - 1
                 Dim linea = lines(i)
                 If linea <> "" Then
 
                     If linea.Contains("NAME:") Then
-                        Dim newname = Split(linea,"NAME:")(1).ToString
-                        t = Replace(t,"Name=" & name, "Name=" & newname)
-               else
+                        Dim newname = Split(linea, "NAME:")(1).ToString
+                        t = Replace(t, "Name=" & name, "Name=" & newname)
+                    Else
 
-                    Dim c As String
-                    Dim n As String
-                    Dim l As String
-                    If linea.Contains("SB:") Then
-                        linea = Replace(linea, "SB: ", "")
-                        If t.Contains("[Sideboard]") = False Then
-                            t = t & "[Sideboard]" & vblf
+                        Dim c As String
+                        Dim n As String
+                        Dim l As String
+                        If linea.Contains("SB:") Then
+                            linea = Replace(linea, "SB: ", "")
+                            If iscommander.Checked Then
+                                If t.Contains("[Commander]") = False Then
+                                    t = t & "[Commander]" & vbLf
+                                End If
+                            Else
+                                If t.Contains("[Sideboard]") = False Then
+                                    t = t & "[Sideboard]" & vbLf
+                                End If
+                            End If
+
                         End If
+                        n = Split(linea, "[")(0).ToString()
+                        c = Split(linea, "]")(1).ToString()
+                        l = n & c & vbLf
+                        l = Replace(l, "  ", " ")
+                        t = t & l
                     End If
-                    n = Split(linea, "[")(0).ToString()
-                    c = Split(linea, "]")(1).ToString()
-                    l = n & c & vblf
-                    l = Replace(l, "  ", " ")
-                    t = t & l
                 End If
-                    End If
             Next i
 
             File.WriteAllText(
@@ -71,5 +78,9 @@ Public Class Form1
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         Process.Start("https://github.com/churrufli/")
+    End Sub
+
+    Private Sub iscommander_CheckedChanged(sender As Object, e As EventArgs) Handles iscommander.CheckedChanged
+
     End Sub
 End Class
