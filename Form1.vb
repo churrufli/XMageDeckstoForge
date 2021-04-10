@@ -21,29 +21,22 @@ Public Class Form1
             name = Replace(name, ".dck", Nothing)
             Dim r As String
             r = File.ReadAllText(foundedfile)
-            '   If r.Contains("NAME:") Then
-            '       name = Split(r,"NAME:")(0).ToString
-            '    r = Split(r,"NAME:",vblf)(1).ToString
-            'End If
             If r.Contains("LAYOUT MAIN") Then r = Split(r, "LAYOUT MAIN")(0).ToString
-
             Dim t As String = "[metadata]" & vbLf & "Name=" & name & vbLf & "[Main]" & vbLf
-
             Dim lines = Split(r, vbLf)
             For i = 0 To lines.Length - 1
-                Dim linea = lines(i)
-                If linea <> "" Then
-
-                    If linea.Contains("NAME:") Then
-                        Dim newname = Split(linea, "NAME:")(1).ToString
+                Dim myline = lines(i)
+                If myline <> "" Then
+                    If myline.Contains("NAME:") Then
+                        Dim newname = Split(myline, "NAME:")(1).ToString
                         t = Replace(t, "Name=" & name, "Name=" & newname)
                     Else
-
                         Dim c As String
                         Dim n As String
                         Dim l As String
-                        If linea.Contains("SB:") Then
-                            linea = Replace(linea, "SB: ", "")
+                        Dim sideboardline = myline.Substring(0, 4)
+                        If sideboardline = "SB: " Then
+                            myline = Replace(myline, "SB: ", "")
                             If iscommander.Checked Then
                                 If t.Contains("[Commander]") = False Then
                                     t = t & "[Commander]" & vbLf
@@ -53,10 +46,9 @@ Public Class Form1
                                     t = t & "[Sideboard]" & vbLf
                                 End If
                             End If
-
                         End If
-                        n = Split(linea, "[")(0).ToString()
-                        c = Split(linea, "]")(1).ToString()
+                        n = Split(myline, "[")(0).ToString()
+                        c = Split(myline, "]")(1).ToString()
                         l = n & c & vbLf
                         l = Replace(l, "  ", " ")
                         t = t & l
